@@ -1,0 +1,44 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - staging
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Show PR info
+        run: |
+          echo "PR Number: ${{ github.event.pull_request.number }}"
+          echo "PR Title: ${{ github.event.pull_request.title }}"
+          echo "Target Branch: ${{ github.base_ref }}"
+          echo "Source Branch: ${{ github.head_ref }}"
+          echo "Event Action: ${{ github.event.action }}"
+      
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          # Your test commands here
+      
+      - name: Check for syntax errors
+        run: |
+          echo "Checking for syntax errors..."
+          # Example: Check if any JS files have syntax errors
+          find . -name "*.js" -exec node -c {} \; || exit 1
+      
+      - name: Check for security issues
+        run: |
+          echo "Checking security..."
+          # Example: Check for hardcoded secrets
+          if grep -r "API_KEY\|SECRET\|PASSWORD" --exclude-dir=.git .; then
+            echo "❌ Hardcoded secrets found!"
+            exit 1
+          fi
+          echo "✅ No secrets found"
