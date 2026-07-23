@@ -8,4 +8,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Building..."
+      - name: Create some data
+        run: |
+          echo "Build timestamp: $(date)" > build-info.txt
+          echo "Random data: $RANDOM" >> build-info.txt
+          mkdir -p dist
+          echo "Hello World" > dist/index.html
+          echo "Version: 1.0.0" > dist/version.txt
+          
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-outputs
+          path: |
+            build-info.txt
+            dist/
+          
+      - name: Upload individual file
+        uses: actions/upload-artifact@v4
+        with:
+          name: summary
+          path: build-info.txt
