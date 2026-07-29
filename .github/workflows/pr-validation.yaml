@@ -3,9 +3,8 @@ name: PR Validation
 on:
   pull_request:
     branches:
-      - dev
-      - staging
-      - main
+      - apple
+
 
 jobs:
   validate:
