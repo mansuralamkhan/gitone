@@ -51,3 +51,23 @@ jobs:
 
         run: |
           aws sts get-caller-identity
+
+      - name: Run Hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+      - name: Scan Base Image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: eclipse-temurin:17-jre-jammy
+          format: sarif
+          output: trivy-base-image-results.sarif
+          ignore-unfixed: true
+          severity: HIGH,CRITICAL
+
+      - name: Upload SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-base-image-results.sarif
