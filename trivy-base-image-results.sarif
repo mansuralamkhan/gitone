@@ -1,0 +1,1921 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "fullName": "Trivy Vulnerability Scanner",
+          "informationUri": "https://github.com/aquasecurity/trivy",
+          "name": "Trivy",
+          "rules": [
+            {
+              "id": "CVE-2026-41991",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "gzip: gzip: Arbitrary file overwrite via insecure temporary file handling in gzexe utility"
+              },
+              "fullDescription": {
+                "text": "GNU gzip contains a vulnerability in the gzexe utility related to insecure temporary file handling. When the mktemp utility is not available in the user’s PATH, gzexe falls back to constructing a temporary file path based solely on the process ID (PID). This predictable filename is created without exclusive access or existence checks.\nA local attacker can pre‑create the predicted temporary file path as a symbolic link pointing to an arbitrary file writable by the victim. When gzexe runs, it follows the symlink and overwrites the target file, resulting in a time‑of‑check to time‑of‑use (TOCTOU) condition that allows arbitrary file overwrite.\n\nThis issue has been fixed in the commit 4e6f8b24ab823146ab8776f0b7fe486ab34d4269"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-41991",
+              "help": {
+                "text": "Vulnerability CVE-2026-41991\nSeverity: MEDIUM\nPackage: gzip\nFixed Version: 1.10-4ubuntu4.2\nLink: [CVE-2026-41991](https://avd.aquasec.com/nvd/cve-2026-41991)\nGNU gzip contains a vulnerability in the gzexe utility related to insecure temporary file handling. When the mktemp utility is not available in the user’s PATH, gzexe falls back to constructing a temporary file path based solely on the process ID (PID). This predictable filename is created without exclusive access or existence checks.\nA local attacker can pre‑create the predicted temporary file path as a symbolic link pointing to an arbitrary file writable by the victim. When gzexe runs, it follows the symlink and overwrites the target file, resulting in a time‑of‑check to time‑of‑use (TOCTOU) condition that allows arbitrary file overwrite.\n\nThis issue has been fixed in the commit 4e6f8b24ab823146ab8776f0b7fe486ab34d4269",
+                "markdown": "**Vulnerability CVE-2026-41991**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|gzip|1.10-4ubuntu4.2|[CVE-2026-41991](https://avd.aquasec.com/nvd/cve-2026-41991)|\n\nGNU gzip contains a vulnerability in the gzexe utility related to insecure temporary file handling. When the mktemp utility is not available in the user’s PATH, gzexe falls back to constructing a temporary file path based solely on the process ID (PID). This predictable filename is created without exclusive access or existence checks.\nA local attacker can pre‑create the predicted temporary file path as a symbolic link pointing to an arbitrary file writable by the victim. When gzexe runs, it follows the symlink and overwrites the target file, resulting in a time‑of‑check to time‑of‑use (TOCTOU) condition that allows arbitrary file overwrite.\n\nThis issue has been fixed in the commit 4e6f8b24ab823146ab8776f0b7fe486ab34d4269"
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-41992",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "GNU gzip contains a global buffer overflow vulnerability in the LZH de ..."
+              },
+              "fullDescription": {
+                "text": "GNU gzip contains a global buffer overflow vulnerability in the LZH decompression logic caused by improper reuse of shared global state between different decompression formats within a single execution. GNU gzip maintains a global array that is shared across the LZ77, LZW, and LZH decompression routines and is not reinitialized between files processed in the same invocation.\nBy decompressing a specially crafted LZW file followed by a specially crafted LZH file in a single gzip -d command, an attacker can poison the shared global state and subsequently trigger an out‑of‑bounds read in the LZH decoder. The LZH decompression logic follows stale values left in the shared array, causing reads past the end of the allocated global buffer.\n\nThis issue has been fixed in the commit 63dbf6b3b9e6e781df1a6a64e609b10e23969681"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-41992",
+              "help": {
+                "text": "Vulnerability CVE-2026-41992\nSeverity: MEDIUM\nPackage: gzip\nFixed Version: 1.10-4ubuntu4.2\nLink: [CVE-2026-41992](https://avd.aquasec.com/nvd/cve-2026-41992)\nGNU gzip contains a global buffer overflow vulnerability in the LZH decompression logic caused by improper reuse of shared global state between different decompression formats within a single execution. GNU gzip maintains a global array that is shared across the LZ77, LZW, and LZH decompression routines and is not reinitialized between files processed in the same invocation.\nBy decompressing a specially crafted LZW file followed by a specially crafted LZH file in a single gzip -d command, an attacker can poison the shared global state and subsequently trigger an out‑of‑bounds read in the LZH decoder. The LZH decompression logic follows stale values left in the shared array, causing reads past the end of the allocated global buffer.\n\nThis issue has been fixed in the commit 63dbf6b3b9e6e781df1a6a64e609b10e23969681",
+                "markdown": "**Vulnerability CVE-2026-41992**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|gzip|1.10-4ubuntu4.2|[CVE-2026-41992](https://avd.aquasec.com/nvd/cve-2026-41992)|\n\nGNU gzip contains a global buffer overflow vulnerability in the LZH decompression logic caused by improper reuse of shared global state between different decompression formats within a single execution. GNU gzip maintains a global array that is shared across the LZ77, LZW, and LZH decompression routines and is not reinitialized between files processed in the same invocation.\nBy decompressing a specially crafted LZW file followed by a specially crafted LZH file in a single gzip -d command, an attacker can poison the shared global state and subsequently trigger an out‑of‑bounds read in the LZH decoder. The LZH decompression logic follows stale values left in the shared array, causing reads past the end of the allocated global buffer.\n\nThis issue has been fixed in the commit 63dbf6b3b9e6e781df1a6a64e609b10e23969681"
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-4046",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "glibc: glibc: Denial of Service via iconv() function with specific character sets"
+              },
+              "fullDescription": {
+                "text": "The iconv() function in the GNU C Library versions 2.43 and earlier may crash due to an assertion failure when converting inputs from the IBM1390 or IBM1399 character sets, which may be used to remotely crash an application.\n\n\n\nThis vulnerability can be trivially mitigated by removing the IBM1390 and IBM1399 character sets from systems that do not need them."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-4046",
+              "help": {
+                "text": "Vulnerability CVE-2026-4046\nSeverity: MEDIUM\nPackage: locales\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-4046](https://avd.aquasec.com/nvd/cve-2026-4046)\nThe iconv() function in the GNU C Library versions 2.43 and earlier may crash due to an assertion failure when converting inputs from the IBM1390 or IBM1399 character sets, which may be used to remotely crash an application.\n\n\n\nThis vulnerability can be trivially mitigated by removing the IBM1390 and IBM1399 character sets from systems that do not need them.",
+                "markdown": "**Vulnerability CVE-2026-4046**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|locales|2.35-0ubuntu3.14|[CVE-2026-4046](https://avd.aquasec.com/nvd/cve-2026-4046)|\n\nThe iconv() function in the GNU C Library versions 2.43 and earlier may crash due to an assertion failure when converting inputs from the IBM1390 or IBM1399 character sets, which may be used to remotely crash an application.\n\n\n\nThis vulnerability can be trivially mitigated by removing the IBM1390 and IBM1399 character sets from systems that do not need them."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-5435",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "glibc: glibc: Out-of-bounds write via TSIG record processing"
+              },
+              "fullDescription": {
+                "text": "The deprecated functions ns_printrrf, ns_printrr and fp_nquery in the GNU C Library version 2.2 and newer fail to enforce the caller-supplied buffer length, and can result in an out-of-bounds write when printing TSIG records."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-5435",
+              "help": {
+                "text": "Vulnerability CVE-2026-5435\nSeverity: MEDIUM\nPackage: locales\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-5435](https://avd.aquasec.com/nvd/cve-2026-5435)\nThe deprecated functions ns_printrrf, ns_printrr and fp_nquery in the GNU C Library version 2.2 and newer fail to enforce the caller-supplied buffer length, and can result in an out-of-bounds write when printing TSIG records.",
+                "markdown": "**Vulnerability CVE-2026-5435**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|locales|2.35-0ubuntu3.14|[CVE-2026-5435](https://avd.aquasec.com/nvd/cve-2026-5435)|\n\nThe deprecated functions ns_printrrf, ns_printrr and fp_nquery in the GNU C Library version 2.2 and newer fail to enforce the caller-supplied buffer length, and can result in an out-of-bounds write when printing TSIG records."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-5450",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "glibc: glibc: Heap Buffer Overflow in `scanf` with `%mc` format specifier and large width"
+              },
+              "fullDescription": {
+                "text": "Calling the scanf family of functions with a %mc (malloc'd character match) in the GNU C Library version 2.7 to version 2.43 with a format width specifier with an explicit width greater than 1024 could result in a one byte heap buffer overflow."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-5450",
+              "help": {
+                "text": "Vulnerability CVE-2026-5450\nSeverity: MEDIUM\nPackage: locales\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-5450](https://avd.aquasec.com/nvd/cve-2026-5450)\nCalling the scanf family of functions with a %mc (malloc'd character match) in the GNU C Library version 2.7 to version 2.43 with a format width specifier with an explicit width greater than 1024 could result in a one byte heap buffer overflow.",
+                "markdown": "**Vulnerability CVE-2026-5450**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|locales|2.35-0ubuntu3.14|[CVE-2026-5450](https://avd.aquasec.com/nvd/cve-2026-5450)|\n\nCalling the scanf family of functions with a %mc (malloc'd character match) in the GNU C Library version 2.7 to version 2.43 with a format width specifier with an explicit width greater than 1024 could result in a one byte heap buffer overflow."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-5928",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "glibc: glibc: Information disclosure or denial of service via ungetwc function with specific wide character encodings"
+              },
+              "fullDescription": {
+                "text": "Calling the ungetwc function on a FILE stream with wide characters encoded in a character set that has overlaps between its single byte and multi-byte character encodings, in the GNU C Library version 2.43 or earlier, may result in an attempt to read bytes before an allocated buffer, potentially resulting in unintentional disclosure of neighboring data in the heap, or a program crash.\n\nA bug in the wide character pushback implementation (_IO_wdefault_pbackfail in libio/wgenops.c) causes ungetwc() to operate on the regular character buffer (fp-\u003e_IO_read_ptr) instead of the actual wide-stream read pointer (fp-\u003e_wide_data-\u003e_IO_read_ptr). The program crash may happen in cases where fp-\u003e_IO_read_ptr is not initialized and hence points to NULL. The buffer under-read requires a special situation where the input character encoding is such that there are overlaps between single byte representations and multibyte representations in that encoding, resulting in spurious matches. The spurious match case is not possible in the standard Unicode character sets."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-5928",
+              "help": {
+                "text": "Vulnerability CVE-2026-5928\nSeverity: MEDIUM\nPackage: locales\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-5928](https://avd.aquasec.com/nvd/cve-2026-5928)\nCalling the ungetwc function on a FILE stream with wide characters encoded in a character set that has overlaps between its single byte and multi-byte character encodings, in the GNU C Library version 2.43 or earlier, may result in an attempt to read bytes before an allocated buffer, potentially resulting in unintentional disclosure of neighboring data in the heap, or a program crash.\n\nA bug in the wide character pushback implementation (_IO_wdefault_pbackfail in libio/wgenops.c) causes ungetwc() to operate on the regular character buffer (fp-\u003e_IO_read_ptr) instead of the actual wide-stream read pointer (fp-\u003e_wide_data-\u003e_IO_read_ptr). The program crash may happen in cases where fp-\u003e_IO_read_ptr is not initialized and hence points to NULL. The buffer under-read requires a special situation where the input character encoding is such that there are overlaps between single byte representations and multibyte representations in that encoding, resulting in spurious matches. The spurious match case is not possible in the standard Unicode character sets.",
+                "markdown": "**Vulnerability CVE-2026-5928**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|locales|2.35-0ubuntu3.14|[CVE-2026-5928](https://avd.aquasec.com/nvd/cve-2026-5928)|\n\nCalling the ungetwc function on a FILE stream with wide characters encoded in a character set that has overlaps between its single byte and multi-byte character encodings, in the GNU C Library version 2.43 or earlier, may result in an attempt to read bytes before an allocated buffer, potentially resulting in unintentional disclosure of neighboring data in the heap, or a program crash.\n\nA bug in the wide character pushback implementation (_IO_wdefault_pbackfail in libio/wgenops.c) causes ungetwc() to operate on the regular character buffer (fp-\u003e_IO_read_ptr) instead of the actual wide-stream read pointer (fp-\u003e_wide_data-\u003e_IO_read_ptr). The program crash may happen in cases where fp-\u003e_IO_read_ptr is not initialized and hence points to NULL. The buffer under-read requires a special situation where the input character encoding is such that there are overlaps between single byte representations and multibyte representations in that encoding, resulting in spurious matches. The spurious match case is not possible in the standard Unicode character sets."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-6238",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "glibc: glibc: Application crash or uninitialized memory read via crafted DNS response"
+              },
+              "fullDescription": {
+                "text": "The deprecated functions ns_printrrf, ns_printrr and fp_nquery in the GNU C Library version 2.0.1 to version 2.43 fail to validate the RDATA content against the RDATA length in a DNS response when processing A6, CERT, LOC, TKEY or TSIG records, which may allow an attacker to craft a DNS response, causing a target application to crash or read uninitialized memory.\n\nThese functions are for application debugging only and hence not in the path of code executed by the DNS resolver.  Further, they have been deprecated since version 2.34 and should not be used by any new applications.  Applications should consider porting away from these interfaces since they may be removed in future versions."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-6238",
+              "help": {
+                "text": "Vulnerability CVE-2026-6238\nSeverity: MEDIUM\nPackage: locales\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-6238](https://avd.aquasec.com/nvd/cve-2026-6238)\nThe deprecated functions ns_printrrf, ns_printrr and fp_nquery in the GNU C Library version 2.0.1 to version 2.43 fail to validate the RDATA content against the RDATA length in a DNS response when processing A6, CERT, LOC, TKEY or TSIG records, which may allow an attacker to craft a DNS response, causing a target application to crash or read uninitialized memory.\n\nThese functions are for application debugging only and hence not in the path of code executed by the DNS resolver.  Further, they have been deprecated since version 2.34 and should not be used by any new applications.  Applications should consider porting away from these interfaces since they may be removed in future versions.",
+                "markdown": "**Vulnerability CVE-2026-6238**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|locales|2.35-0ubuntu3.14|[CVE-2026-6238](https://avd.aquasec.com/nvd/cve-2026-6238)|\n\nThe deprecated functions ns_printrrf, ns_printrr and fp_nquery in the GNU C Library version 2.0.1 to version 2.43 fail to validate the RDATA content against the RDATA length in a DNS response when processing A6, CERT, LOC, TKEY or TSIG records, which may allow an attacker to craft a DNS response, causing a target application to crash or read uninitialized memory.\n\nThese functions are for application debugging only and hence not in the path of code executed by the DNS resolver.  Further, they have been deprecated since version 2.34 and should not be used by any new applications.  Applications should consider porting away from these interfaces since they may be removed in future versions."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-11850",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "krb5: krb5: integer underflow in berval2tl_data() leads to heap out-of-bounds read"
+              },
+              "fullDescription": {
+                "text": "An integer underflow vulnerability was found in MIT krb5 in the berval2tl_data() function in plugins/kdb/ldap/libkdb_ldap/ldap_principal2.c. The function performs an unsigned subtraction (bv_len - 2) without a prior bounds check. When bv_len is 0 or 1, the subtraction wraps to a large value which is then truncated to uint16_t, yielding 0xFFFE (65534) or 0xFFFF (65535). The subsequent malloc succeeds and memcpy reads up to 65534 bytes from a 0-1 byte buffer, resulting in a heap out-of-bounds read.\nThe attack vector involves a malicious or compromised LDAP KDB backend returning a krbExtraData attribute with bv_len \u003c 2, triggering the underflow when the KDC or kadmind reads principal data."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-11850",
+              "help": {
+                "text": "Vulnerability CVE-2026-11850\nSeverity: MEDIUM\nPackage: libkrb5support0\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-11850](https://avd.aquasec.com/nvd/cve-2026-11850)\nAn integer underflow vulnerability was found in MIT krb5 in the berval2tl_data() function in plugins/kdb/ldap/libkdb_ldap/ldap_principal2.c. The function performs an unsigned subtraction (bv_len - 2) without a prior bounds check. When bv_len is 0 or 1, the subtraction wraps to a large value which is then truncated to uint16_t, yielding 0xFFFE (65534) or 0xFFFF (65535). The subsequent malloc succeeds and memcpy reads up to 65534 bytes from a 0-1 byte buffer, resulting in a heap out-of-bounds read.\nThe attack vector involves a malicious or compromised LDAP KDB backend returning a krbExtraData attribute with bv_len \u003c 2, triggering the underflow when the KDC or kadmind reads principal data.",
+                "markdown": "**Vulnerability CVE-2026-11850**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libkrb5support0|1.19.2-2ubuntu0.8|[CVE-2026-11850](https://avd.aquasec.com/nvd/cve-2026-11850)|\n\nAn integer underflow vulnerability was found in MIT krb5 in the berval2tl_data() function in plugins/kdb/ldap/libkdb_ldap/ldap_principal2.c. The function performs an unsigned subtraction (bv_len - 2) without a prior bounds check. When bv_len is 0 or 1, the subtraction wraps to a large value which is then truncated to uint16_t, yielding 0xFFFE (65534) or 0xFFFF (65535). The subsequent malloc succeeds and memcpy reads up to 65534 bytes from a 0-1 byte buffer, resulting in a heap out-of-bounds read.\nThe attack vector involves a malicious or compromised LDAP KDB backend returning a krbExtraData attribute with bv_len \u003c 2, triggering the underflow when the KDC or kadmind reads principal data."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-40355",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "krb5: MIT Kerberos 5: Denial of Service via NULL pointer dereference in NegoEx mechanism"
+              },
+              "fullDescription": {
+                "text": "In MIT Kerberos 5 (aka krb5) before 1.22.3, there is a NULL pointer dereference if an application calls gss_accept_sec_context() on a system with a NegoEx mechanism registered in /etc/gss/mech. An unauthenticated remote attacker can trigger this, causing the process to terminate in parse_nego_message."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-40355",
+              "help": {
+                "text": "Vulnerability CVE-2026-40355\nSeverity: MEDIUM\nPackage: libkrb5support0\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-40355](https://avd.aquasec.com/nvd/cve-2026-40355)\nIn MIT Kerberos 5 (aka krb5) before 1.22.3, there is a NULL pointer dereference if an application calls gss_accept_sec_context() on a system with a NegoEx mechanism registered in /etc/gss/mech. An unauthenticated remote attacker can trigger this, causing the process to terminate in parse_nego_message.",
+                "markdown": "**Vulnerability CVE-2026-40355**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libkrb5support0|1.19.2-2ubuntu0.8|[CVE-2026-40355](https://avd.aquasec.com/nvd/cve-2026-40355)|\n\nIn MIT Kerberos 5 (aka krb5) before 1.22.3, there is a NULL pointer dereference if an application calls gss_accept_sec_context() on a system with a NegoEx mechanism registered in /etc/gss/mech. An unauthenticated remote attacker can trigger this, causing the process to terminate in parse_nego_message."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-40356",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "krb5: MIT Kerberos 5 (krb5): Denial of Service via integer underflow and out-of-bounds read"
+              },
+              "fullDescription": {
+                "text": "In MIT Kerberos 5 (aka krb5) before 1.22.3, there is an integer underflow and resultant out-of-bounds read if an application calls gss_accept_sec_context() on a system with a NegoEx mechanism registered in /etc/gss/mech. An unauthenticated remote attacker can trigger this, possibly causing the process to terminate in parse_message."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-40356",
+              "help": {
+                "text": "Vulnerability CVE-2026-40356\nSeverity: MEDIUM\nPackage: libkrb5support0\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-40356](https://avd.aquasec.com/nvd/cve-2026-40356)\nIn MIT Kerberos 5 (aka krb5) before 1.22.3, there is an integer underflow and resultant out-of-bounds read if an application calls gss_accept_sec_context() on a system with a NegoEx mechanism registered in /etc/gss/mech. An unauthenticated remote attacker can trigger this, possibly causing the process to terminate in parse_message.",
+                "markdown": "**Vulnerability CVE-2026-40356**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libkrb5support0|1.19.2-2ubuntu0.8|[CVE-2026-40356](https://avd.aquasec.com/nvd/cve-2026-40356)|\n\nIn MIT Kerberos 5 (aka krb5) before 1.22.3, there is an integer underflow and resultant out-of-bounds read if an application calls gss_accept_sec_context() on a system with a NegoEx mechanism registered in /etc/gss/mech. An unauthenticated remote attacker can trigger this, possibly causing the process to terminate in parse_message."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-69720",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "ncurses: ncurses: Buffer overflow vulnerability may lead to arbitrary code execution."
+              },
+              "fullDescription": {
+                "text": "The infocmp command-line tool in ncurses before 6.5-20251213 has a stack-based buffer overflow in analyze_string in progs/infocmp.c."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-69720",
+              "help": {
+                "text": "Vulnerability CVE-2025-69720\nSeverity: LOW\nPackage: ncurses-bin\nFixed Version: 6.3-2ubuntu0.2\nLink: [CVE-2025-69720](https://avd.aquasec.com/nvd/cve-2025-69720)\nThe infocmp command-line tool in ncurses before 6.5-20251213 has a stack-based buffer overflow in analyze_string in progs/infocmp.c.",
+                "markdown": "**Vulnerability CVE-2025-69720**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|ncurses-bin|6.3-2ubuntu0.2|[CVE-2025-69720](https://avd.aquasec.com/nvd/cve-2025-69720)|\n\nThe infocmp command-line tool in ncurses before 6.5-20251213 has a stack-based buffer overflow in analyze_string in progs/infocmp.c."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "2.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "LOW"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-58055",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "nghttp2: nghttp2: HTTP Request/Response Smuggling and Response-Queue Poisoning via ambiguous HTTP/1.1 Upgrade requests"
+              },
+              "fullDescription": {
+                "text": "nghttp2's nghttpx proxy through 1.69.0 forwards an HTTP/1.1 Upgrade request that also carries a Content-Length header and body onto reusable keep-alive backend connections, re-adding the Upgrade and Connection headers while passing Content-Length verbatim. A backend that resolves the resulting ambiguous message in the attacker's favor enables HTTP request/response smuggling and cross-client response-queue poisoning."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-58055",
+              "help": {
+                "text": "Vulnerability CVE-2026-58055\nSeverity: MEDIUM\nPackage: libnghttp2-14\nFixed Version: 1.43.0-1ubuntu0.4\nLink: [CVE-2026-58055](https://avd.aquasec.com/nvd/cve-2026-58055)\nnghttp2's nghttpx proxy through 1.69.0 forwards an HTTP/1.1 Upgrade request that also carries a Content-Length header and body onto reusable keep-alive backend connections, re-adding the Upgrade and Connection headers while passing Content-Length verbatim. A backend that resolves the resulting ambiguous message in the attacker's favor enables HTTP request/response smuggling and cross-client response-queue poisoning.",
+                "markdown": "**Vulnerability CVE-2026-58055**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libnghttp2-14|1.43.0-1ubuntu0.4|[CVE-2026-58055](https://avd.aquasec.com/nvd/cve-2026-58055)|\n\nnghttp2's nghttpx proxy through 1.69.0 forwards an HTTP/1.1 Upgrade request that also carries a Content-Length header and body onto reusable keep-alive backend connections, re-adding the Upgrade and Connection headers while passing Content-Length verbatim. A backend that resolves the resulting ambiguous message in the attacker's favor enables HTTP request/response smuggling and cross-client response-queue poisoning."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-54411",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "linux-pam: Plaintext password recovery via timing discrepancy in pam_userdb module"
+              },
+              "fullDescription": {
+                "text": "Linux-PAM through 1.7.2 contains an observable timing discrepancy (CWE-208) in the pam_userdb module's plaintext-password comparison path in modules/pam_userdb/pam_userdb.c that allows a local or network-adjacent attacker able to repeatedly drive authentication through a calling service to recover the plaintext password of a target account by measuring response-timing differences. The comparison uses strncmp() (or strncasecmp() when PAM_ICASE_ARG is set) preceded by a length-equality check, so the time to reject a candidate depends on the index of the first differing byte and on whether the candidate's length matches the stored password, leaking the password length and individual prefix bytes. The vulnerable path is reached when the administrator configures pam_userdb with crypt=none, with an unrecognized crypt method, or without a crypt= argument, causing the module to store and compare credentials in plaintext."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-54411",
+              "help": {
+                "text": "Vulnerability CVE-2026-54411\nSeverity: MEDIUM\nPackage: libpam0g\nFixed Version: 1.4.0-11ubuntu2.7\nLink: [CVE-2026-54411](https://avd.aquasec.com/nvd/cve-2026-54411)\nLinux-PAM through 1.7.2 contains an observable timing discrepancy (CWE-208) in the pam_userdb module's plaintext-password comparison path in modules/pam_userdb/pam_userdb.c that allows a local or network-adjacent attacker able to repeatedly drive authentication through a calling service to recover the plaintext password of a target account by measuring response-timing differences. The comparison uses strncmp() (or strncasecmp() when PAM_ICASE_ARG is set) preceded by a length-equality check, so the time to reject a candidate depends on the index of the first differing byte and on whether the candidate's length matches the stored password, leaking the password length and individual prefix bytes. The vulnerable path is reached when the administrator configures pam_userdb with crypt=none, with an unrecognized crypt method, or without a crypt= argument, causing the module to store and compare credentials in plaintext.",
+                "markdown": "**Vulnerability CVE-2026-54411**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libpam0g|1.4.0-11ubuntu2.7|[CVE-2026-54411](https://avd.aquasec.com/nvd/cve-2026-54411)|\n\nLinux-PAM through 1.7.2 contains an observable timing discrepancy (CWE-208) in the pam_userdb module's plaintext-password comparison path in modules/pam_userdb/pam_userdb.c that allows a local or network-adjacent attacker able to repeatedly drive authentication through a calling service to recover the plaintext password of a target account by measuring response-timing differences. The comparison uses strncmp() (or strncasecmp() when PAM_ICASE_ARG is set) preceded by a length-equality check, so the time to reject a candidate depends on the index of the first differing byte and on whether the candidate's length matches the stored password, leaking the password length and individual prefix bytes. The vulnerable path is reached when the administrator configures pam_userdb with crypt=none, with an unrecognized crypt method, or without a crypt= argument, causing the module to store and compare credentials in plaintext."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-50812",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "A NULL pointer dereference in the SQLite Session Extension in SQLite 3 ..."
+              },
+              "fullDescription": {
+                "text": "A NULL pointer dereference in the SQLite Session Extension in SQLite 3.53.1 and SQLite trunk builds before check-in e807d4e3798efd53 allows an attacker who can supply a malformed changeset blob to cause a denial of service. The issue occurs when sqlite3changeset_apply_v3() applies a corrupt changeset and reaches sqlite3_value_type() with a NULL sqlite3_value pointer."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-50812",
+              "help": {
+                "text": "Vulnerability CVE-2026-50812\nSeverity: MEDIUM\nPackage: libsqlite3-0\nFixed Version: 3.37.2-2ubuntu0.7\nLink: [CVE-2026-50812](https://avd.aquasec.com/nvd/cve-2026-50812)\nA NULL pointer dereference in the SQLite Session Extension in SQLite 3.53.1 and SQLite trunk builds before check-in e807d4e3798efd53 allows an attacker who can supply a malformed changeset blob to cause a denial of service. The issue occurs when sqlite3changeset_apply_v3() applies a corrupt changeset and reaches sqlite3_value_type() with a NULL sqlite3_value pointer.",
+                "markdown": "**Vulnerability CVE-2026-50812**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libsqlite3-0|3.37.2-2ubuntu0.7|[CVE-2026-50812](https://avd.aquasec.com/nvd/cve-2026-50812)|\n\nA NULL pointer dereference in the SQLite Session Extension in SQLite 3.53.1 and SQLite trunk builds before check-in e807d4e3798efd53 allows an attacker who can supply a malformed changeset blob to cause a denial of service. The issue occurs when sqlite3changeset_apply_v3() applies a corrupt changeset and reaches sqlite3_value_type() with a NULL sqlite3_value pointer."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-50813",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "An issue in SQLite before Fossil check-in 869a51ae84df allows a local  ..."
+              },
+              "fullDescription": {
+                "text": "An issue in SQLite before Fossil check-in 869a51ae84df allows a local attacker to obtain sensitive information via the Session Extension changeset concat/changegroup merge path"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-50813",
+              "help": {
+                "text": "Vulnerability CVE-2026-50813\nSeverity: MEDIUM\nPackage: libsqlite3-0\nFixed Version: 3.37.2-2ubuntu0.7\nLink: [CVE-2026-50813](https://avd.aquasec.com/nvd/cve-2026-50813)\nAn issue in SQLite before Fossil check-in 869a51ae84df allows a local attacker to obtain sensitive information via the Session Extension changeset concat/changegroup merge path",
+                "markdown": "**Vulnerability CVE-2026-50813**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|libsqlite3-0|3.37.2-2ubuntu0.7|[CVE-2026-50813](https://avd.aquasec.com/nvd/cve-2026-50813)|\n\nAn issue in SQLite before Fossil check-in 869a51ae84df allows a local attacker to obtain sensitive information via the Session Extension changeset concat/changegroup merge path"
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-45582",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "tar: Tar path traversal"
+              },
+              "fullDescription": {
+                "text": "GNU Tar through 1.35 allows file overwrite via directory traversal in crafted TAR archives, with a certain two-step process. First, the victim must extract an archive that contains a ../ symlink to a critical directory. Second, the victim must extract an archive that contains a critical file, specified via a relative pathname that begins with the symlink name and ends with that critical file's name. Here, the extraction follows the symlink and overwrites the critical file. This bypasses the protection mechanism of \"Member name contains '..'\" that would occur for a single TAR archive that attempted to specify the critical file via a ../ approach. For example, the first archive can contain \"x -\u003e ../../../../../home/victim/.ssh\" and the second archive can contain x/authorized_keys. This can affect server applications that automatically extract any number of user-supplied TAR archives, and were relying on the blocking of traversal. This can also affect software installation processes in which \"tar xf\" is run more than once (e.g., when installing a package can automatically install two dependencies that are set up as untrusted tarballs instead of official packages). NOTE: the official GNU Tar manual has an otherwise-empty directory for each \"tar xf\" in its Security Rules of Thumb; however, third-party advice leads users to run \"tar xf\" more than once into the same directory."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-45582",
+              "help": {
+                "text": "Vulnerability CVE-2025-45582\nSeverity: MEDIUM\nPackage: tar\nFixed Version: 1.34+dfsg-1ubuntu0.1.22.04.4\nLink: [CVE-2025-45582](https://avd.aquasec.com/nvd/cve-2025-45582)\nGNU Tar through 1.35 allows file overwrite via directory traversal in crafted TAR archives, with a certain two-step process. First, the victim must extract an archive that contains a ../ symlink to a critical directory. Second, the victim must extract an archive that contains a critical file, specified via a relative pathname that begins with the symlink name and ends with that critical file's name. Here, the extraction follows the symlink and overwrites the critical file. This bypasses the protection mechanism of \"Member name contains '..'\" that would occur for a single TAR archive that attempted to specify the critical file via a ../ approach. For example, the first archive can contain \"x -\u003e ../../../../../home/victim/.ssh\" and the second archive can contain x/authorized_keys. This can affect server applications that automatically extract any number of user-supplied TAR archives, and were relying on the blocking of traversal. This can also affect software installation processes in which \"tar xf\" is run more than once (e.g., when installing a package can automatically install two dependencies that are set up as untrusted tarballs instead of official packages). NOTE: the official GNU Tar manual has an otherwise-empty directory for each \"tar xf\" in its Security Rules of Thumb; however, third-party advice leads users to run \"tar xf\" more than once into the same directory.",
+                "markdown": "**Vulnerability CVE-2025-45582**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|tar|1.34+dfsg-1ubuntu0.1.22.04.4|[CVE-2025-45582](https://avd.aquasec.com/nvd/cve-2025-45582)|\n\nGNU Tar through 1.35 allows file overwrite via directory traversal in crafted TAR archives, with a certain two-step process. First, the victim must extract an archive that contains a ../ symlink to a critical directory. Second, the victim must extract an archive that contains a critical file, specified via a relative pathname that begins with the symlink name and ends with that critical file's name. Here, the extraction follows the symlink and overwrites the critical file. This bypasses the protection mechanism of \"Member name contains '..'\" that would occur for a single TAR archive that attempted to specify the critical file via a ../ approach. For example, the first archive can contain \"x -\u003e ../../../../../home/victim/.ssh\" and the second archive can contain x/authorized_keys. This can affect server applications that automatically extract any number of user-supplied TAR archives, and were relying on the blocking of traversal. This can also affect software installation processes in which \"tar xf\" is run more than once (e.g., when installing a package can automatically install two dependencies that are set up as untrusted tarballs instead of official packages). NOTE: the official GNU Tar manual has an otherwise-empty directory for each \"tar xf\" in its Security Rules of Thumb; however, third-party advice leads users to run \"tar xf\" more than once into the same directory."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-5704",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "tar: tar: Hidden file injection via crafted archives"
+              },
+              "fullDescription": {
+                "text": "A flaw was found in tar. A remote attacker could exploit this vulnerability by crafting a malicious archive, leading to hidden file injection with fully attacker-controlled content. This bypasses pre-extraction inspection mechanisms, potentially allowing an attacker to introduce malicious files onto a system without detection."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-5704",
+              "help": {
+                "text": "Vulnerability CVE-2026-5704\nSeverity: MEDIUM\nPackage: tar\nFixed Version: 1.34+dfsg-1ubuntu0.1.22.04.6\nLink: [CVE-2026-5704](https://avd.aquasec.com/nvd/cve-2026-5704)\nA flaw was found in tar. A remote attacker could exploit this vulnerability by crafting a malicious archive, leading to hidden file injection with fully attacker-controlled content. This bypasses pre-extraction inspection mechanisms, potentially allowing an attacker to introduce malicious files onto a system without detection.",
+                "markdown": "**Vulnerability CVE-2026-5704**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|tar|1.34+dfsg-1ubuntu0.1.22.04.6|[CVE-2026-5704](https://avd.aquasec.com/nvd/cve-2026-5704)|\n\nA flaw was found in tar. A remote attacker could exploit this vulnerability by crafting a malicious archive, leading to hidden file injection with fully attacker-controlled content. This bypasses pre-extraction inspection mechanisms, potentially allowing an attacker to introduce malicious files onto a system without detection."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-15146",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "wget: Wget: Server-Side Request Forgery via FTP PASV response IP address validation bypass"
+              },
+              "fullDescription": {
+                "text": "GNU Wget does not validate the IP address provided by an FTP PASV response while operating in FTP passive mode. A malicious FTP server, or an HTTP server that redirects to an FTP URL, can exploit this behavior to redirect Wget’s data connection to an arbitrary IP address and port. This allows an attacker to forge server-side requests (SSRF) from the machine running Wget, potentially accessing localhost services or internal network resources."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-15146",
+              "help": {
+                "text": "Vulnerability CVE-2026-15146\nSeverity: MEDIUM\nPackage: wget\nFixed Version: 1.21.2-2ubuntu1.4\nLink: [CVE-2026-15146](https://avd.aquasec.com/nvd/cve-2026-15146)\nGNU Wget does not validate the IP address provided by an FTP PASV response while operating in FTP passive mode. A malicious FTP server, or an HTTP server that redirects to an FTP URL, can exploit this behavior to redirect Wget’s data connection to an arbitrary IP address and port. This allows an attacker to forge server-side requests (SSRF) from the machine running Wget, potentially accessing localhost services or internal network resources.",
+                "markdown": "**Vulnerability CVE-2026-15146**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|wget|1.21.2-2ubuntu1.4|[CVE-2026-15146](https://avd.aquasec.com/nvd/cve-2026-15146)|\n\nGNU Wget does not validate the IP address provided by an FTP PASV response while operating in FTP passive mode. A malicious FTP server, or an HTTP server that redirects to an FTP URL, can exploit this behavior to redirect Wget’s data connection to an arbitrary IP address and port. This allows an attacker to forge server-side requests (SSRF) from the machine running Wget, potentially accessing localhost services or internal network resources."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-58469",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "wget: GNU Wget: Memory corruption via crafted Metalink URL"
+              },
+              "fullDescription": {
+                "text": "GNU Wget through 1.25.0, fixed in commit 37a40fc, contains a heap buffer underread vulnerability in the clean_metalink_string() function within src/metalink.c that allows a malicious server to trigger memory corruption by serving a Metalink document containing a whitespace-only URL. Attackers can cause the function to decrement a pointer past the start of the buffer when processing an all-whitespace Metalink URL, potentially leading to abnormal program behavior."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-58469",
+              "help": {
+                "text": "Vulnerability CVE-2026-58469\nSeverity: MEDIUM\nPackage: wget\nFixed Version: 1.21.2-2ubuntu1.3\nLink: [CVE-2026-58469](https://avd.aquasec.com/nvd/cve-2026-58469)\nGNU Wget through 1.25.0, fixed in commit 37a40fc, contains a heap buffer underread vulnerability in the clean_metalink_string() function within src/metalink.c that allows a malicious server to trigger memory corruption by serving a Metalink document containing a whitespace-only URL. Attackers can cause the function to decrement a pointer past the start of the buffer when processing an all-whitespace Metalink URL, potentially leading to abnormal program behavior.",
+                "markdown": "**Vulnerability CVE-2026-58469**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|wget|1.21.2-2ubuntu1.3|[CVE-2026-58469](https://avd.aquasec.com/nvd/cve-2026-58469)|\n\nGNU Wget through 1.25.0, fixed in commit 37a40fc, contains a heap buffer underread vulnerability in the clean_metalink_string() function within src/metalink.c that allows a malicious server to trigger memory corruption by serving a Metalink document containing a whitespace-only URL. Attackers can cause the function to decrement a pointer past the start of the buffer when processing an all-whitespace Metalink URL, potentially leading to abnormal program behavior."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-58470",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "wget: GNU Wget: Integer overflow in Content-Range header parsing causes download desynchronization"
+              },
+              "fullDescription": {
+                "text": "GNU Wget through 1.25.0, fixed in commit 43d3ba9, contains an integer overflow vulnerability in the parse_content_range() function within src/http.c that allows server-controlled values to cause signed integer arithmetic to overflow. Attackers can supply malicious Content-Range header values to trigger undefined behavior and download desynchronization in the affected client."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-58470",
+              "help": {
+                "text": "Vulnerability CVE-2026-58470\nSeverity: MEDIUM\nPackage: wget\nFixed Version: 1.21.2-2ubuntu1.3\nLink: [CVE-2026-58470](https://avd.aquasec.com/nvd/cve-2026-58470)\nGNU Wget through 1.25.0, fixed in commit 43d3ba9, contains an integer overflow vulnerability in the parse_content_range() function within src/http.c that allows server-controlled values to cause signed integer arithmetic to overflow. Attackers can supply malicious Content-Range header values to trigger undefined behavior and download desynchronization in the affected client.",
+                "markdown": "**Vulnerability CVE-2026-58470**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|wget|1.21.2-2ubuntu1.3|[CVE-2026-58470](https://avd.aquasec.com/nvd/cve-2026-58470)|\n\nGNU Wget through 1.25.0, fixed in commit 43d3ba9, contains an integer overflow vulnerability in the parse_content_range() function within src/http.c that allows server-controlled values to cause signed integer arithmetic to overflow. Attackers can supply malicious Content-Range header values to trigger undefined behavior and download desynchronization in the affected client."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-58471",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "wget: GNU Wget: Heap buffer overflow via server-supplied filename leads to memory corruption"
+              },
+              "fullDescription": {
+                "text": "GNU Wget through 1.25.0, fixed in commit c2640fe, contains a heap buffer overflow vulnerability in the convert_fname() function within src/url.c that allows remote attackers to trigger memory corruption through a server-supplied filename requiring character set conversion. When the output buffer is too small during iconv E2BIG reallocation, the reallocation logic miscalculates the remaining space, leading to a heap buffer overflow that can be exploited via a maliciously crafted server response."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-58471",
+              "help": {
+                "text": "Vulnerability CVE-2026-58471\nSeverity: MEDIUM\nPackage: wget\nFixed Version: 1.21.2-2ubuntu1.3\nLink: [CVE-2026-58471](https://avd.aquasec.com/nvd/cve-2026-58471)\nGNU Wget through 1.25.0, fixed in commit c2640fe, contains a heap buffer overflow vulnerability in the convert_fname() function within src/url.c that allows remote attackers to trigger memory corruption through a server-supplied filename requiring character set conversion. When the output buffer is too small during iconv E2BIG reallocation, the reallocation logic miscalculates the remaining space, leading to a heap buffer overflow that can be exploited via a maliciously crafted server response.",
+                "markdown": "**Vulnerability CVE-2026-58471**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|wget|1.21.2-2ubuntu1.3|[CVE-2026-58471](https://avd.aquasec.com/nvd/cve-2026-58471)|\n\nGNU Wget through 1.25.0, fixed in commit c2640fe, contains a heap buffer overflow vulnerability in the convert_fname() function within src/url.c that allows remote attackers to trigger memory corruption through a server-supplied filename requiring character set conversion. When the output buffer is too small during iconv E2BIG reallocation, the reallocation logic miscalculates the remaining space, leading to a heap buffer overflow that can be exploited via a maliciously crafted server response."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-58472",
+              "name": "OsPackageVulnerability",
+              "shortDescription": {
+                "text": "wget: GNU Wget: Arbitrary code execution or denial of service via crafted HTML attribute"
+              },
+              "fullDescription": {
+                "text": "GNU Wget through 1.25.0, fixed in commit dd692d9, contains a heap buffer overflow vulnerability in the html_quote_string() function in src/convert.c that allows a remote attacker to trigger memory corruption by supplying a crafted HTML attribute with a large number of characters requiring entity encoding. A server-supplied HTML attribute causes a signed integer counter to overflow during output size accumulation, resulting in an undersized heap allocation and subsequent heap buffer overflow during the copy phase."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-58472",
+              "help": {
+                "text": "Vulnerability CVE-2026-58472\nSeverity: MEDIUM\nPackage: wget\nFixed Version: 1.21.2-2ubuntu1.3\nLink: [CVE-2026-58472](https://avd.aquasec.com/nvd/cve-2026-58472)\nGNU Wget through 1.25.0, fixed in commit dd692d9, contains a heap buffer overflow vulnerability in the html_quote_string() function in src/convert.c that allows a remote attacker to trigger memory corruption by supplying a crafted HTML attribute with a large number of characters requiring entity encoding. A server-supplied HTML attribute causes a signed integer counter to overflow during output size accumulation, resulting in an undersized heap allocation and subsequent heap buffer overflow during the copy phase.",
+                "markdown": "**Vulnerability CVE-2026-58472**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|wget|1.21.2-2ubuntu1.3|[CVE-2026-58472](https://avd.aquasec.com/nvd/cve-2026-58472)|\n\nGNU Wget through 1.25.0, fixed in commit dd692d9, contains a heap buffer overflow vulnerability in the html_quote_string() function in src/convert.c that allows a remote attacker to trigger memory corruption by supplying a crafted HTML attribute with a large number of characters requiring entity encoding. A server-supplied HTML attribute causes a signed integer counter to overflow during output size accumulation, resulting in an undersized heap allocation and subsequent heap buffer overflow during the copy phase."
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "5.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            }
+          ],
+          "version": "0.72.0"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CVE-2026-41991",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Package: gzip\nInstalled Version: 1.10-4ubuntu4.1\nVulnerability CVE-2026-41991\nSeverity: MEDIUM\nFixed Version: 1.10-4ubuntu4.2\nLink: [CVE-2026-41991](https://avd.aquasec.com/nvd/cve-2026-41991)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: gzip@1.10-4ubuntu4.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-41992",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Package: gzip\nInstalled Version: 1.10-4ubuntu4.1\nVulnerability CVE-2026-41992\nSeverity: MEDIUM\nFixed Version: 1.10-4ubuntu4.2\nLink: [CVE-2026-41992](https://avd.aquasec.com/nvd/cve-2026-41992)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: gzip@1.10-4ubuntu4.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-4046",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "Package: libc-bin\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-4046\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-4046](https://avd.aquasec.com/nvd/cve-2026-4046)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libc-bin@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-5435",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "Package: libc-bin\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-5435\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-5435](https://avd.aquasec.com/nvd/cve-2026-5435)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libc-bin@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-5450",
+          "ruleIndex": 4,
+          "level": "warning",
+          "message": {
+            "text": "Package: libc-bin\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-5450\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-5450](https://avd.aquasec.com/nvd/cve-2026-5450)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libc-bin@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-5928",
+          "ruleIndex": 5,
+          "level": "warning",
+          "message": {
+            "text": "Package: libc-bin\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-5928\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-5928](https://avd.aquasec.com/nvd/cve-2026-5928)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libc-bin@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-6238",
+          "ruleIndex": 6,
+          "level": "warning",
+          "message": {
+            "text": "Package: libc-bin\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-6238\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-6238](https://avd.aquasec.com/nvd/cve-2026-6238)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libc-bin@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-4046",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "Package: libc6\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-4046\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-4046](https://avd.aquasec.com/nvd/cve-2026-4046)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libc6@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-5435",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "Package: libc6\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-5435\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-5435](https://avd.aquasec.com/nvd/cve-2026-5435)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libc6@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-5450",
+          "ruleIndex": 4,
+          "level": "warning",
+          "message": {
+            "text": "Package: libc6\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-5450\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-5450](https://avd.aquasec.com/nvd/cve-2026-5450)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libc6@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-5928",
+          "ruleIndex": 5,
+          "level": "warning",
+          "message": {
+            "text": "Package: libc6\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-5928\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-5928](https://avd.aquasec.com/nvd/cve-2026-5928)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libc6@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-6238",
+          "ruleIndex": 6,
+          "level": "warning",
+          "message": {
+            "text": "Package: libc6\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-6238\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-6238](https://avd.aquasec.com/nvd/cve-2026-6238)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libc6@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-11850",
+          "ruleIndex": 7,
+          "level": "warning",
+          "message": {
+            "text": "Package: libgssapi-krb5-2\nInstalled Version: 1.19.2-2ubuntu0.7\nVulnerability CVE-2026-11850\nSeverity: MEDIUM\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-11850](https://avd.aquasec.com/nvd/cve-2026-11850)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libgssapi-krb5-2@1.19.2-2ubuntu0.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-40355",
+          "ruleIndex": 8,
+          "level": "warning",
+          "message": {
+            "text": "Package: libgssapi-krb5-2\nInstalled Version: 1.19.2-2ubuntu0.7\nVulnerability CVE-2026-40355\nSeverity: MEDIUM\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-40355](https://avd.aquasec.com/nvd/cve-2026-40355)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libgssapi-krb5-2@1.19.2-2ubuntu0.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-40356",
+          "ruleIndex": 9,
+          "level": "warning",
+          "message": {
+            "text": "Package: libgssapi-krb5-2\nInstalled Version: 1.19.2-2ubuntu0.7\nVulnerability CVE-2026-40356\nSeverity: MEDIUM\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-40356](https://avd.aquasec.com/nvd/cve-2026-40356)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libgssapi-krb5-2@1.19.2-2ubuntu0.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-11850",
+          "ruleIndex": 7,
+          "level": "warning",
+          "message": {
+            "text": "Package: libk5crypto3\nInstalled Version: 1.19.2-2ubuntu0.7\nVulnerability CVE-2026-11850\nSeverity: MEDIUM\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-11850](https://avd.aquasec.com/nvd/cve-2026-11850)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libk5crypto3@1.19.2-2ubuntu0.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-40355",
+          "ruleIndex": 8,
+          "level": "warning",
+          "message": {
+            "text": "Package: libk5crypto3\nInstalled Version: 1.19.2-2ubuntu0.7\nVulnerability CVE-2026-40355\nSeverity: MEDIUM\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-40355](https://avd.aquasec.com/nvd/cve-2026-40355)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libk5crypto3@1.19.2-2ubuntu0.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-40356",
+          "ruleIndex": 9,
+          "level": "warning",
+          "message": {
+            "text": "Package: libk5crypto3\nInstalled Version: 1.19.2-2ubuntu0.7\nVulnerability CVE-2026-40356\nSeverity: MEDIUM\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-40356](https://avd.aquasec.com/nvd/cve-2026-40356)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libk5crypto3@1.19.2-2ubuntu0.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-11850",
+          "ruleIndex": 7,
+          "level": "warning",
+          "message": {
+            "text": "Package: libkrb5-3\nInstalled Version: 1.19.2-2ubuntu0.7\nVulnerability CVE-2026-11850\nSeverity: MEDIUM\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-11850](https://avd.aquasec.com/nvd/cve-2026-11850)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libkrb5-3@1.19.2-2ubuntu0.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-40355",
+          "ruleIndex": 8,
+          "level": "warning",
+          "message": {
+            "text": "Package: libkrb5-3\nInstalled Version: 1.19.2-2ubuntu0.7\nVulnerability CVE-2026-40355\nSeverity: MEDIUM\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-40355](https://avd.aquasec.com/nvd/cve-2026-40355)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libkrb5-3@1.19.2-2ubuntu0.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-40356",
+          "ruleIndex": 9,
+          "level": "warning",
+          "message": {
+            "text": "Package: libkrb5-3\nInstalled Version: 1.19.2-2ubuntu0.7\nVulnerability CVE-2026-40356\nSeverity: MEDIUM\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-40356](https://avd.aquasec.com/nvd/cve-2026-40356)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libkrb5-3@1.19.2-2ubuntu0.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-11850",
+          "ruleIndex": 7,
+          "level": "warning",
+          "message": {
+            "text": "Package: libkrb5support0\nInstalled Version: 1.19.2-2ubuntu0.7\nVulnerability CVE-2026-11850\nSeverity: MEDIUM\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-11850](https://avd.aquasec.com/nvd/cve-2026-11850)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libkrb5support0@1.19.2-2ubuntu0.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-40355",
+          "ruleIndex": 8,
+          "level": "warning",
+          "message": {
+            "text": "Package: libkrb5support0\nInstalled Version: 1.19.2-2ubuntu0.7\nVulnerability CVE-2026-40355\nSeverity: MEDIUM\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-40355](https://avd.aquasec.com/nvd/cve-2026-40355)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libkrb5support0@1.19.2-2ubuntu0.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-40356",
+          "ruleIndex": 9,
+          "level": "warning",
+          "message": {
+            "text": "Package: libkrb5support0\nInstalled Version: 1.19.2-2ubuntu0.7\nVulnerability CVE-2026-40356\nSeverity: MEDIUM\nFixed Version: 1.19.2-2ubuntu0.8\nLink: [CVE-2026-40356](https://avd.aquasec.com/nvd/cve-2026-40356)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libkrb5support0@1.19.2-2ubuntu0.7"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-69720",
+          "ruleIndex": 10,
+          "level": "note",
+          "message": {
+            "text": "Package: libncurses6\nInstalled Version: 6.3-2ubuntu0.1\nVulnerability CVE-2025-69720\nSeverity: LOW\nFixed Version: 6.3-2ubuntu0.2\nLink: [CVE-2025-69720](https://avd.aquasec.com/nvd/cve-2025-69720)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libncurses6@6.3-2ubuntu0.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-69720",
+          "ruleIndex": 10,
+          "level": "note",
+          "message": {
+            "text": "Package: libncursesw6\nInstalled Version: 6.3-2ubuntu0.1\nVulnerability CVE-2025-69720\nSeverity: LOW\nFixed Version: 6.3-2ubuntu0.2\nLink: [CVE-2025-69720](https://avd.aquasec.com/nvd/cve-2025-69720)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libncursesw6@6.3-2ubuntu0.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-58055",
+          "ruleIndex": 11,
+          "level": "warning",
+          "message": {
+            "text": "Package: libnghttp2-14\nInstalled Version: 1.43.0-1ubuntu0.3\nVulnerability CVE-2026-58055\nSeverity: MEDIUM\nFixed Version: 1.43.0-1ubuntu0.4\nLink: [CVE-2026-58055](https://avd.aquasec.com/nvd/cve-2026-58055)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libnghttp2-14@1.43.0-1ubuntu0.3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-54411",
+          "ruleIndex": 12,
+          "level": "warning",
+          "message": {
+            "text": "Package: libpam-modules\nInstalled Version: 1.4.0-11ubuntu2.6\nVulnerability CVE-2026-54411\nSeverity: MEDIUM\nFixed Version: 1.4.0-11ubuntu2.7\nLink: [CVE-2026-54411](https://avd.aquasec.com/nvd/cve-2026-54411)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libpam-modules@1.4.0-11ubuntu2.6"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-54411",
+          "ruleIndex": 12,
+          "level": "warning",
+          "message": {
+            "text": "Package: libpam-modules-bin\nInstalled Version: 1.4.0-11ubuntu2.6\nVulnerability CVE-2026-54411\nSeverity: MEDIUM\nFixed Version: 1.4.0-11ubuntu2.7\nLink: [CVE-2026-54411](https://avd.aquasec.com/nvd/cve-2026-54411)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libpam-modules-bin@1.4.0-11ubuntu2.6"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-54411",
+          "ruleIndex": 12,
+          "level": "warning",
+          "message": {
+            "text": "Package: libpam-runtime\nInstalled Version: 1.4.0-11ubuntu2.6\nVulnerability CVE-2026-54411\nSeverity: MEDIUM\nFixed Version: 1.4.0-11ubuntu2.7\nLink: [CVE-2026-54411](https://avd.aquasec.com/nvd/cve-2026-54411)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libpam-runtime@1.4.0-11ubuntu2.6"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-54411",
+          "ruleIndex": 12,
+          "level": "warning",
+          "message": {
+            "text": "Package: libpam0g\nInstalled Version: 1.4.0-11ubuntu2.6\nVulnerability CVE-2026-54411\nSeverity: MEDIUM\nFixed Version: 1.4.0-11ubuntu2.7\nLink: [CVE-2026-54411](https://avd.aquasec.com/nvd/cve-2026-54411)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libpam0g@1.4.0-11ubuntu2.6"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-50812",
+          "ruleIndex": 13,
+          "level": "warning",
+          "message": {
+            "text": "Package: libsqlite3-0\nInstalled Version: 3.37.2-2ubuntu0.6\nVulnerability CVE-2026-50812\nSeverity: MEDIUM\nFixed Version: 3.37.2-2ubuntu0.7\nLink: [CVE-2026-50812](https://avd.aquasec.com/nvd/cve-2026-50812)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libsqlite3-0@3.37.2-2ubuntu0.6"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-50813",
+          "ruleIndex": 14,
+          "level": "warning",
+          "message": {
+            "text": "Package: libsqlite3-0\nInstalled Version: 3.37.2-2ubuntu0.6\nVulnerability CVE-2026-50813\nSeverity: MEDIUM\nFixed Version: 3.37.2-2ubuntu0.7\nLink: [CVE-2026-50813](https://avd.aquasec.com/nvd/cve-2026-50813)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libsqlite3-0@3.37.2-2ubuntu0.6"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-69720",
+          "ruleIndex": 10,
+          "level": "note",
+          "message": {
+            "text": "Package: libtinfo6\nInstalled Version: 6.3-2ubuntu0.1\nVulnerability CVE-2025-69720\nSeverity: LOW\nFixed Version: 6.3-2ubuntu0.2\nLink: [CVE-2025-69720](https://avd.aquasec.com/nvd/cve-2025-69720)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: libtinfo6@6.3-2ubuntu0.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-4046",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "Package: locales\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-4046\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-4046](https://avd.aquasec.com/nvd/cve-2026-4046)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: locales@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-5435",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "Package: locales\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-5435\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-5435](https://avd.aquasec.com/nvd/cve-2026-5435)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: locales@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-5450",
+          "ruleIndex": 4,
+          "level": "warning",
+          "message": {
+            "text": "Package: locales\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-5450\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-5450](https://avd.aquasec.com/nvd/cve-2026-5450)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: locales@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-5928",
+          "ruleIndex": 5,
+          "level": "warning",
+          "message": {
+            "text": "Package: locales\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-5928\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-5928](https://avd.aquasec.com/nvd/cve-2026-5928)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: locales@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-6238",
+          "ruleIndex": 6,
+          "level": "warning",
+          "message": {
+            "text": "Package: locales\nInstalled Version: 2.35-0ubuntu3.13\nVulnerability CVE-2026-6238\nSeverity: MEDIUM\nFixed Version: 2.35-0ubuntu3.14\nLink: [CVE-2026-6238](https://avd.aquasec.com/nvd/cve-2026-6238)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: locales@2.35-0ubuntu3.13"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-69720",
+          "ruleIndex": 10,
+          "level": "note",
+          "message": {
+            "text": "Package: ncurses-base\nInstalled Version: 6.3-2ubuntu0.1\nVulnerability CVE-2025-69720\nSeverity: LOW\nFixed Version: 6.3-2ubuntu0.2\nLink: [CVE-2025-69720](https://avd.aquasec.com/nvd/cve-2025-69720)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: ncurses-base@6.3-2ubuntu0.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-69720",
+          "ruleIndex": 10,
+          "level": "note",
+          "message": {
+            "text": "Package: ncurses-bin\nInstalled Version: 6.3-2ubuntu0.1\nVulnerability CVE-2025-69720\nSeverity: LOW\nFixed Version: 6.3-2ubuntu0.2\nLink: [CVE-2025-69720](https://avd.aquasec.com/nvd/cve-2025-69720)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: ncurses-bin@6.3-2ubuntu0.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-45582",
+          "ruleIndex": 15,
+          "level": "warning",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 1.34+dfsg-1ubuntu0.1.22.04.3\nVulnerability CVE-2025-45582\nSeverity: MEDIUM\nFixed Version: 1.34+dfsg-1ubuntu0.1.22.04.4\nLink: [CVE-2025-45582](https://avd.aquasec.com/nvd/cve-2025-45582)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: tar@1.34+dfsg-1ubuntu0.1.22.04.3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-5704",
+          "ruleIndex": 16,
+          "level": "warning",
+          "message": {
+            "text": "Package: tar\nInstalled Version: 1.34+dfsg-1ubuntu0.1.22.04.3\nVulnerability CVE-2026-5704\nSeverity: MEDIUM\nFixed Version: 1.34+dfsg-1ubuntu0.1.22.04.6\nLink: [CVE-2026-5704](https://avd.aquasec.com/nvd/cve-2026-5704)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: tar@1.34+dfsg-1ubuntu0.1.22.04.3"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-15146",
+          "ruleIndex": 17,
+          "level": "warning",
+          "message": {
+            "text": "Package: wget\nInstalled Version: 1.21.2-2ubuntu1.1\nVulnerability CVE-2026-15146\nSeverity: MEDIUM\nFixed Version: 1.21.2-2ubuntu1.4\nLink: [CVE-2026-15146](https://avd.aquasec.com/nvd/cve-2026-15146)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: wget@1.21.2-2ubuntu1.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-58469",
+          "ruleIndex": 18,
+          "level": "warning",
+          "message": {
+            "text": "Package: wget\nInstalled Version: 1.21.2-2ubuntu1.1\nVulnerability CVE-2026-58469\nSeverity: MEDIUM\nFixed Version: 1.21.2-2ubuntu1.3\nLink: [CVE-2026-58469](https://avd.aquasec.com/nvd/cve-2026-58469)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: wget@1.21.2-2ubuntu1.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-58470",
+          "ruleIndex": 19,
+          "level": "warning",
+          "message": {
+            "text": "Package: wget\nInstalled Version: 1.21.2-2ubuntu1.1\nVulnerability CVE-2026-58470\nSeverity: MEDIUM\nFixed Version: 1.21.2-2ubuntu1.3\nLink: [CVE-2026-58470](https://avd.aquasec.com/nvd/cve-2026-58470)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: wget@1.21.2-2ubuntu1.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-58471",
+          "ruleIndex": 20,
+          "level": "warning",
+          "message": {
+            "text": "Package: wget\nInstalled Version: 1.21.2-2ubuntu1.1\nVulnerability CVE-2026-58471\nSeverity: MEDIUM\nFixed Version: 1.21.2-2ubuntu1.3\nLink: [CVE-2026-58471](https://avd.aquasec.com/nvd/cve-2026-58471)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: wget@1.21.2-2ubuntu1.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-58472",
+          "ruleIndex": 21,
+          "level": "warning",
+          "message": {
+            "text": "Package: wget\nInstalled Version: 1.21.2-2ubuntu1.1\nVulnerability CVE-2026-58472\nSeverity: MEDIUM\nFixed Version: 1.21.2-2ubuntu1.3\nLink: [CVE-2026-58472](https://avd.aquasec.com/nvd/cve-2026-58472)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "library/eclipse-temurin",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "library/eclipse-temurin: wget@1.21.2-2ubuntu1.1"
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits",
+      "properties": {
+        "imageID": "sha256:7ca34f4b3ec77384ba75a81e598677cb7f55591ca7fe7941f3889ab213bd46ee",
+        "imageName": "eclipse-temurin:17-jre-jammy",
+        "repoDigests": [
+          "eclipse-temurin@sha256:475d8e96b4b2bfe08999e5e854755c773af1581acdf959a4545d88f0696a2339"
+        ],
+        "repoTags": [
+          "eclipse-temurin:17-jre-jammy"
+        ]
+      }
+    }
+  ]
+}

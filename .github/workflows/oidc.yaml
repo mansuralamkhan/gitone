@@ -46,7 +46,12 @@ jobs:
 
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
-          aws-region: ap-south-1
+          aws-region: ${[var.AWS_REGION]}
+      - name: Login to Amazon ECR
+
+        id: login-ecr
+
+        uses: aws-actions/amazon-ecr-login@v2
 
       - name: Verify Identity
 
@@ -57,13 +62,46 @@ jobs:
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: Dockerfile
+      
+      - name: Build Docker Image
+        run: |
+          docker build \
+            -t github-trivy-lab:latest \
+            .
+      - name: Tag Image
+
+        env:
+
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+
+          REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+
+        run: |
+
+          docker tag \
+            github-trivy-lab:latest \
+            ${REGISTRY}/${REPOSITORY}:${{ github.sha }}
+
+      - name: Push Image
+
+        env:
+
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+
+          REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+
+        run: |
+
+          docker push \
+            ${REGISTRY}/${REPOSITORY}:${{ github.sha }}
+                  
 
       - name: Scan Base Image
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: eclipse-temurin:17-jre-jammy
+          image-ref: github-trivy-lab:latest
           format: sarif
-          output: trivy-base-image-results.sarif
+          output: trivy-image-results.sarif
           ignore-unfixed: true
           severity: HIGH,CRITICAL
 
