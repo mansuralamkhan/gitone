@@ -17,12 +17,27 @@ jobs:
 
       - uses: actions/checkout@v4
 
+      - name: Request OIDC Token
+        run: |
+          echo "Requesting token..."
+
+          RESPONSE=$(curl -s \
+                -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+                "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com")
+
+          echo "$RESPONSE"
+
       - name: Debug GitHub Context
         run: |
             echo "Repository : ${{ github.repository }}"
             echo "Ref        : ${{ github.ref }}"
             echo "Ref Name   : ${{ github.ref_name }}"
             echo "Run ID     : ${{ github.run_id }}"
+      - name: Show Context
+        run: |
+            echo "Repository: ${{ github.repository }}"
+            echo "Ref: ${{ github.ref }}"
+            echo "Actor: ${{ github.actor }}"
 
       - name: Configure AWS Credentials
 
