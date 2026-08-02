@@ -17,6 +17,13 @@ jobs:
 
       - uses: actions/checkout@v4
 
+      - name: Debug GitHub Context
+        run: |
+            echo "Repository : ${{ github.repository }}"
+            echo "Ref        : ${{ github.ref }}"
+            echo "Ref Name   : ${{ github.ref_name }}"
+            echo "Run ID     : ${{ github.run_id }}"
+
       - name: Configure AWS Credentials
 
         uses: aws-actions/configure-aws-credentials@v4
