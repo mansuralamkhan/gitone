@@ -7,6 +7,7 @@ permissions:
   id-token: write
   contents: read
   security-events: write
+  attestations: write
 
 jobs:
 
@@ -27,6 +28,8 @@ jobs:
                 "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com")
 
           echo "$RESPONSE"
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Debug GitHub Context
         run: |
@@ -63,37 +66,25 @@ jobs:
         with:
           dockerfile: Dockerfile
       
-      - name: Build Docker Image
-        run: |
-          docker build \
-            -t github-trivy-lab:latest \
-            .
-      - name: Tag Image
+      - name: Build and Push Image
 
-        env:
+        id: build
 
-          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        uses: docker/build-push-action@v6
 
-          REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+        with:
 
-        run: |
+          context: .
 
-          docker tag \
-            github-trivy-lab:latest \
-            ${REGISTRY}/${REPOSITORY}:${{ github.sha }}
+          file: Dockerfile
 
-      - name: Push Image
+          push: true
 
-        env:
+          tags: |
+            ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:${{ github.sha }}
 
-          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-
-          REPOSITORY: ${{ vars.ECR_REPOSITORY }}
-
-        run: |
-
-          docker push \
-            ${REGISTRY}/${REPOSITORY}:${{ github.sha }}
+          provenance: false
+  
 
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3
@@ -105,13 +96,34 @@ jobs:
 
         run: |
 
-          IMAGE_URI="${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:${{ github.sha }}"
+          IMAGE_URI="${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}@${{ steps.build.outputs.digest }}"
 
           echo "Signing ${IMAGE_URI}"
 
           cosign sign \
             --yes \
             "${IMAGE_URI}"
+      - name: Show Digest
+
+        run: |
+
+          echo "Digest"
+
+          echo "${{ steps.build.outputs.digest }}"
+
+      - name: Generate Provenance
+
+        uses: actions/attest-build-provenance@v2
+
+        with:
+
+          subject-name: |
+            ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}
+
+          subject-digest: |
+            ${{ steps.build.outputs.digest }}
+
+          push-to-registry: true
 
       
                         
@@ -119,7 +131,8 @@ jobs:
       - name: Scan Base Image
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: github-trivy-lab:latest
+          image-ref: |
+            ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}@${{ steps.build.outputs.digest }}
           format: sarif
           output: trivy-image-results.sarif
           ignore-unfixed: true
