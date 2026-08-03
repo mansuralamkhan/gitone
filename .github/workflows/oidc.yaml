@@ -5,7 +5,7 @@ on:
 
 permissions:
   id-token: write
-  contents: read
+  contents: write
   security-events: write
   attestations: write
 
@@ -126,3 +126,27 @@ jobs:
         with:
           name: release-registry
           path: release/
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Copy Release Record
+        run: |
+          mkdir -p release-registry/releases/${GITHUB_SHA}
+          cp release/release.yaml \
+            release-registry/releases/${GITHUB_SHA}/release.yaml
+      - name: Commit Release Registry
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add release-registry/
+
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+
+          git commit -m "Register release ${GITHUB_SHA}"
+
+          git push
