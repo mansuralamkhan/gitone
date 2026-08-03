@@ -93,54 +93,109 @@ jobs:
           path: deployment-metadata/
 
   register-release:
-    needs: security
+
+    name: Register Release
+
+    needs:
+      - security
+
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/download-artifact@v4
+
+      # ------------------------------------------------------------
+      # Download verified deployment metadata
+      # ------------------------------------------------------------
+
+      - name: Download Deployment Metadata
+
+        uses: actions/download-artifact@v4
+
         with:
           name: verified-deployment-metadata
           path: deployment-metadata
+
+      # ------------------------------------------------------------
+      # Checkout repository
+      # ------------------------------------------------------------
+
+      - name: Checkout Repository
+
+        uses: actions/checkout@v4
+
+        with:
+          fetch-depth: 0
+
+      # ------------------------------------------------------------
+      # Create Release Record directly inside repository
+      # ------------------------------------------------------------
+
       - name: Create Release Registry
+
+        shell: bash
+
         run: |
-          mkdir -p release
-          REPOSITORY=$(jq -r '.repository' deployment-metadata/deployment-metadata.json)
-          TAG=$(jq -r '.tag' deployment-metadata/deployment-metadata.json)
-          DIGEST=$(jq -r '.digest' deployment-metadata/deployment-metadata.json)
-          URI=$(jq -r '.uri' deployment-metadata/deployment-metadata.json)
-          cat > release/release.yaml <<EOF
+
+          set -euo pipefail
+
+          REPOSITORY=$(
+            jq -r '.repository' deployment-metadata/deployment-metadata.json
+          )
+
+          TAG=$(
+            jq -r '.tag' deployment-metadata/deployment-metadata.json
+          )
+
+          DIGEST=$(
+            jq -r '.digest' deployment-metadata/deployment-metadata.json
+          )
+
+          URI=$(
+            jq -r '.uri' deployment-metadata/deployment-metadata.json
+          )
+
+          RELEASE_DIR="release-registry/releases/${GITHUB_SHA}"
+
+          mkdir -p "${RELEASE_DIR}"
+
+          cat > "${RELEASE_DIR}/release.yaml" <<EOF
           schemaVersion: "1.0"
+
           release:
             id: "${GITHUB_SHA}"
+
           image:
             repository: "${REPOSITORY}"
             tag: "${TAG}"
             digest: "${DIGEST}"
             uri: "${URI}"
+
           security:
             trivy: passed
             cosign: signed
             slsa: attested
           EOF
-          cat release/release.yaml
-      - uses: actions/upload-artifact@v4
-        with:
-          name: release-registry
-          path: release/
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Copy Release Record
-        run: |
-          mkdir -p release-registry/releases/${GITHUB_SHA}
-          cp release/release.yaml \
-            release-registry/releases/${GITHUB_SHA}/release.yaml
+
+          echo "Created release record"
+
+          cat "${RELEASE_DIR}/release.yaml"
+
+      # ------------------------------------------------------------
+      # Commit Release Registry
+      # ------------------------------------------------------------
+
       - name: Commit Release Registry
+
+        shell: bash
+
         run: |
+
+          set -euo pipefail
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add release-registry/
+          git add release-registry
 
           if git diff --cached --quiet; then
             echo "Nothing to commit."
@@ -150,3 +205,16 @@ jobs:
           git commit -m "Register release ${GITHUB_SHA}"
 
           git push
+
+      # ------------------------------------------------------------
+      # Upload Release Artifact (optional)
+      # ------------------------------------------------------------
+
+      - name: Upload Release Record
+
+        uses: actions/upload-artifact@v4
+
+        with:
+          name: release-registry
+
+          path: release-registry/releases/${GITHUB_SHA}
