@@ -1,4 +1,5 @@
 name: Secure Container Pipeline
+
 on:
   workflow_dispatch:
 
@@ -9,134 +10,119 @@ permissions:
   attestations: write
 
 jobs:
-  build-sign-attest:
-
+  build:
+    name: Build Image
     runs-on: ubuntu-latest
-
     env:
       AWS_REGION: ${{ vars.AWS_REGION }}
       ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Configure AWS Credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v4
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
-
-      - name: Login to Amazon ECR
-        id: login-ecr
+      - id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Run Hadolint
-        uses: hadolint/hadolint-action@v3.1.0
+      - uses: docker/setup-buildx-action@v3
+      - uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: Dockerfile
-
-      - name: Build and Push Image
-        id: build
+      - id: build
         uses: docker/build-push-action@v6
         with:
           context: .
           file: Dockerfile
           push: true
           provenance: false
-          tags: |
-            ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:${{ github.sha }}
-
+          tags: ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:${{ github.sha }}
       - name: Create Deployment Metadata
-        env:
-          IMAGE_REPOSITORY: ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}
-          IMAGE_TAG: ${{ github.sha }}
-          IMAGE_DIGEST: ${{ steps.build.outputs.digest }}
         run: |
-          set -euo pipefail
-
           mkdir -p deployment-metadata
-
+          IMAGE_REPOSITORY="${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}"
+          IMAGE_TAG="${{ github.sha }}"
+          IMAGE_DIGEST="${{ steps.build.outputs.digest }}"
           IMAGE_URI="${IMAGE_REPOSITORY}@${IMAGE_DIGEST}"
-
-          jq -n \
-            --arg repository "${IMAGE_REPOSITORY}" \
-            --arg tag "${IMAGE_TAG}" \
-            --arg digest "${IMAGE_DIGEST}" \
-            --arg uri "${IMAGE_URI}" \
-            '{
-              repository:$repository,
-              tag:$tag,
-              digest:$digest,
-              uri:$uri
-            }' > deployment-metadata/deployment-metadata.json
-
-          jq . deployment-metadata/deployment-metadata.json
-
-      - name: Upload Deployment Metadata
-        uses: actions/upload-artifact@v4
+          jq -n --arg repository "$IMAGE_REPOSITORY" --arg tag "$IMAGE_TAG" --arg digest "$IMAGE_DIGEST" --arg uri "$IMAGE_URI" '{repository:$repository,tag:$tag,digest:$digest,uri:$uri}' > deployment-metadata/deployment-metadata.json
+      - uses: actions/upload-artifact@v4
         with:
           name: deployment-metadata
           path: deployment-metadata/
 
-      - name: Scan Image with Trivy
-        uses: aquasecurity/trivy-action@master
+  security:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
         with:
-          image-ref: ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}@${{ steps.build.outputs.digest }}
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - uses: aws-actions/amazon-ecr-login@v2
+      - uses: actions/download-artifact@v4
+        with:
+          name: deployment-metadata
+          path: deployment-metadata
+      - run: |
+          echo "IMAGE_URI=$(jq -r '.uri' deployment-metadata/deployment-metadata.json)" >> $GITHUB_ENV
+          echo "IMAGE_REPOSITORY=$(jq -r '.repository' deployment-metadata/deployment-metadata.json)" >> $GITHUB_ENV
+          echo "IMAGE_DIGEST=$(jq -r '.digest' deployment-metadata/deployment-metadata.json)" >> $GITHUB_ENV
+      - uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.IMAGE_URI }}
           format: sarif
           output: trivy-image-results.sarif
           ignore-unfixed: true
           severity: HIGH,CRITICAL
-
-      - name: Upload SARIF
+      - uses: github/codeql-action/upload-sarif@v3
         if: always()
-        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-image-results.sarif
-
-      - name: Upload SARIF Artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: trivy-sarif
-          path: trivy-image-results.sarif
-
-      - name: Install Cosign
-        uses: sigstore/cosign-installer@v3
-
-      - name: Sign Container Image (Keyless)
+      - uses: sigstore/cosign-installer@v3
+      - run: cosign sign --yes "${IMAGE_URI}"
         env:
           COSIGN_EXPERIMENTAL: "true"
-        run: |
-          set -euo pipefail
-
-          IMAGE_URI=$(jq -r '.uri' deployment-metadata/deployment-metadata.json)
-
-          echo "Signing ${IMAGE_URI}"
-
-          cosign sign --yes "${IMAGE_URI}"
-
-      - name: Generate SLSA Provenance
-        uses: actions/attest-build-provenance@v2
+      - uses: actions/attest-build-provenance@v2
         with:
-          subject-name: ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}
-          subject-digest: ${{ steps.build.outputs.digest }}
+          subject-name: ${{ env.IMAGE_REPOSITORY }}
+          subject-digest: ${{ env.IMAGE_DIGEST }}
           push-to-registry: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verified-deployment-metadata
+          path: deployment-metadata/
 
-      - name: Workflow Summary
+  register-release:
+    needs: security
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: verified-deployment-metadata
+          path: deployment-metadata
+      - name: Create Release Registry
         run: |
-          {
-            echo "# Secure Build Summary"
-            echo ""
-            echo "| Item | Value |"
-            echo "|------|-------|"
-            echo "| Repository | ${{ github.repository }} |"
-            echo "| Commit | ${{ github.sha }} |"
-            echo "| Image Digest | ${{ steps.build.outputs.digest }} |"
-            echo ""
-            echo "## Image URI"
-            jq -r '.uri' deployment-metadata/deployment-metadata.json
-          } >> "$GITHUB_STEP_SUMMARY"
+          mkdir -p release
+          REPOSITORY=$(jq -r '.repository' deployment-metadata/deployment-metadata.json)
+          TAG=$(jq -r '.tag' deployment-metadata/deployment-metadata.json)
+          DIGEST=$(jq -r '.digest' deployment-metadata/deployment-metadata.json)
+          URI=$(jq -r '.uri' deployment-metadata/deployment-metadata.json)
+          cat > release/release.yaml <<EOF
+          schemaVersion: "1.0"
+          release:
+            id: "${GITHUB_SHA}"
+          image:
+            repository: "${REPOSITORY}"
+            tag: "${TAG}"
+            digest: "${DIGEST}"
+            uri: "${URI}"
+          security:
+            trivy: passed
+            cosign: signed
+            slsa: attested
+          EOF
+          cat release/release.yaml
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-registry
+          path: release/
