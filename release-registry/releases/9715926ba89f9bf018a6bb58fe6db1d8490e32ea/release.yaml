@@ -1,0 +1,15 @@
+schemaVersion: "1.0"
+
+release:
+  id: "9715926ba89f9bf018a6bb58fe6db1d8490e32ea"
+
+image:
+  repository: "183991395055.dkr.ecr.us-east-1.amazonaws.com/github-trivy-lab"
+  tag: "9715926ba89f9bf018a6bb58fe6db1d8490e32ea"
+  digest: "sha256:6c238f47d40a24030dc0c9b3ed472d82b92a6cf7f54c2fd09a501d0e36d168f3"
+  uri: "183991395055.dkr.ecr.us-east-1.amazonaws.com/github-trivy-lab@sha256:6c238f47d40a24030dc0c9b3ed472d82b92a6cf7f54c2fd09a501d0e36d168f3"
+
+security:
+  trivy: passed
+  cosign: signed
+  slsa: attested
