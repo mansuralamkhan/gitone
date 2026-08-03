@@ -115,6 +115,16 @@ jobs:
           name: verified-deployment-metadata
           path: deployment-metadata
 
+      - name: Debug Downloaded Files
+        run: |
+          pwd
+
+          echo "===== Directory Structure ====="
+
+          find .
+
+      
+
       # ------------------------------------------------------------
       # Checkout repository
       # ------------------------------------------------------------
