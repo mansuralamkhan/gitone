@@ -8,5 +8,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🟢 Preview running with pull_request_target"
-      - run: echo "Branch: ${{ github.ref }}"
-      - run: echo "Event: ${{ github.event_name }}"
+      - run: "Branch: ${{ github.ref }}"
+      - run: "Event: ${{ github.event_name }}"
