@@ -1,0 +1,11 @@
+name: CI - Tests
+on:
+  pull_request:
+    branches: [ main ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🔵 CI running with pull_request"
+      - run: echo "Branch: ${{ github.ref }}"
+      - run: echo "Event: ${{ github.event_name }}"

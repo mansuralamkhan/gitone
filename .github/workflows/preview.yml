@@ -1,0 +1,12 @@
+name: Deploy Preview
+on:
+  pull_request_target:
+    types: [ opened ]
+    branches: [ main ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🟢 Preview running with pull_request_target"
+      - run: echo "Branch: ${{ github.ref }}"
+      - run: echo "Event: ${{ github.event_name }}"
