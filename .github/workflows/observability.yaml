@@ -1,0 +1,22 @@
+name: Weekly Failure Rate Report
+
+on:
+  schedule:
+    - cron: "0 9 * * MON"    # every Monday 9am UTC
+  workflow_dispatch:          # lets you trigger it manually to test
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch recent runs
+        run: |
+          curl -s -H "Authorization: Bearer ${{ secrets.OBSERV }}" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/runs?branch=main&per_page=100" \
+            > runs.json
+
+      - name: Compute failure rate
+        run: |
+          total=$(jq '.workflow_runs | length' runs.json)
+          failed=$(jq '[.workflow_runs[] | select(.conclusion=="failure")] | length' runs.json)
+          echo "Failure rate: $failed / $total"
